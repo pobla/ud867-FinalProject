@@ -78,7 +78,12 @@ public class MainActivity extends AppCompatActivity {
 //                                  // - turn off compression when running against local devappserver
 //                                     .setRootUrl("http://10.0.2.2:8080/_ah/api/")
                                    //TODO extract url to build.gradle and remove compression in devserver
-                                   .setRootUrl("https://testing-final-proxy.appspot.com/_ah/api/")
+      // how to create the app
+//                                      gcloud init
+//                                      gcloud app deploy
+//                                      gcloud app create
+//                                      ./gradlew backend:appengineDeploy
+                                   .setRootUrl("https://testing-core.appspot.com/_ah/api/")
                                    .setGoogleClientRequestInitializer(new GoogleClientRequestInitializer() {
                                      @Override
                                      public void initialize(AbstractGoogleClientRequest<?> abstractGoogleClientRequest) throws IOException {
