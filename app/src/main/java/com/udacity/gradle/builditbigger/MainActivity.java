@@ -66,28 +66,18 @@ public class MainActivity extends AppCompatActivity {
       try {
         return jokerApiClient.joke().execute().getValue();
       } catch (IOException e) {
-        return e.getMessage();
+        return null;
       }
     }
 
     private void initApiService() {
       Builder builder = new Builder(AndroidHttp.newCompatibleTransport(),
                                                  new AndroidJsonFactory(), null)
-//                                  // options for running against local devappserver
-//                                  // - 10.0.2.2 is localhost's IP address in Android emulator
-//                                  // - turn off compression when running against local devappserver
-//                                     .setRootUrl("http://10.0.2.2:8080/_ah/api/")
-                                   //TODO extract url to build.gradle and remove compression in devserver
-      // how to create the app
-//                                      gcloud init
-//                                      gcloud app deploy
-//                                      gcloud app create
-//                                      ./gradlew backend:appengineDeploy
-                                   .setRootUrl("https://testing-core.appspot.com/_ah/api/")
+                                   .setRootUrl(BuildConfig.API_BASE_URL)
                                    .setGoogleClientRequestInitializer(new GoogleClientRequestInitializer() {
                                      @Override
                                      public void initialize(AbstractGoogleClientRequest<?> abstractGoogleClientRequest) throws IOException {
-                                       abstractGoogleClientRequest.setDisableGZipContent(true);
+                                       abstractGoogleClientRequest.setDisableGZipContent(BuildConfig.DEBUG);
                                      }
                                    });
       jokerApiClient = builder.build();
@@ -95,7 +85,9 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     protected void onPostExecute(String result) {
-      startActivity(JokeTellerActivity.getIntent(context, result));
+      if(result != null) {
+        startActivity(JokeTellerActivity.getIntent(context, result));
+      }
     }
   }
 
