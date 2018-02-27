@@ -20,3 +20,7 @@ allprojects {
         google()
     }
 }
+
+
+task testAcceptanceLocal(dependsOn: ['backend:appengineStart', 'app:connectedAndroidTest']){}
+testAcceptanceLocal.finalizedBy("backend:appengineStop")
