@@ -115,6 +115,7 @@ public class MainActivity extends AppCompatActivity {
       try {
         return jokerApiClient.joke().execute().getValue();
       } catch (IOException e) {
+        Log.e(this.getClass().getCanonicalName(), "Error retrieving API", e);
         return null;
       }
     }
