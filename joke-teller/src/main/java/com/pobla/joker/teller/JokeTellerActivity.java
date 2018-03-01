@@ -21,9 +21,11 @@ public class JokeTellerActivity extends AppCompatActivity {
   protected void onCreate(@Nullable Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
     setContentView(R.layout.activity_joke_teller);
-    String joke = getIntent().getStringExtra(JOKE);
+    if (getIntent().hasExtra(JOKE)) {
+      String joke = getIntent().getStringExtra(JOKE);
 
-    TextView jokeView = findViewById(R.id.tv_joke);
-    jokeView.setText(joke);
+      TextView jokeView = findViewById(R.id.tv_joke);
+      jokeView.setText(joke);
+    }
   }
 }
